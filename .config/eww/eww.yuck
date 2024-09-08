@@ -1,0 +1,163 @@
+;;;;; window ##################################################
+(defwindow bar
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "0%"
+                               :width "100%"
+                               :height "23px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "2%" :side "top")
+           :windowtype "dock"
+           :wm-ignore true
+           :exclusive true
+  (mybar)
+)
+
+;;;; bar ##########################################################
+(defwidget mybar []
+  (centerbox :orientation "h"
+    (leftBar)
+    date
+    (rightBar)))
+;;;;rightBar #######################################################
+
+(defwidget rightBar [] 
+    (box :class "rightBar" :orientation "h" :space-evenly false :halign "end" 
+        (metric :class "volbar"
+                :label "󰕾 ${volume}%" 
+                :value volume
+                :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}% ")
+        (metricb :label "󰃠 ${brightness}%" 
+                :value brightness
+	        :onchange "~/.config/eww/scripts/backlight {}")
+        (myw :icon " "
+           :text "${round(EWW_RAM.used_mem_perc , 0)}%")       
+        (myw :icon "${wifiicon}"
+         :text "${wifiname}" )
+        (batt :icon "${batteryicon} "
+         :text "${batterypercent}%")
+    time
+    )
+)
+
+;;; leftBar ##################################################
+(defwidget leftBar []
+  (box :class "leftBar" :orientation "h" :halign "start"
+    (workspaces)
+    (pray :icon " "
+          :text "${praytime}")
+))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+    (button :class { wrk == 1 ? "active" : "inactive"}
+            :onclick "bash ~/.config/river/scripts/tag  1" '󰣇')
+    (button :class { wrk == 2 ? "active" : "inactive"}
+            :onclick "bash ~/.config/river/scripts/tag  2" '󰣇')
+    (button :class { wrk == 3 ? "active" : "inactive"}
+            :onclick "bash ~/.config/river/scripts/tag  3" '󰣇')
+    (button :class { wrk == 4 ? "active" : "inactive"}
+            :onclick "bash ~/.config/river/scripts/tag  4" '󰣇')
+    (button :class { wrk == 5 ? "active" : "inactive"}
+            :onclick "bash ~/.config/river/scripts/tag  5" '󰣇')))
+
+
+;;;widget #######################################################
+
+(defwidget batt [icon text]
+   (box :orientation "h"
+   	:class battclass
+	:space-evenly false
+	(label :text icon)
+	(label :text text)
+	))
+
+
+(defwidget metric [label value onchange]
+  (eventbox :onhover "${EWW_CMD} update volum=true"		
+	    :onhoverlost "${EWW_CMD} update volum=false"
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (revealer :transition "slideleft" 
+	      :reveal volum
+	      :duration "550ms"
+    (scale 
+           :min 0
+           :max 119
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))))
+(defvar volum false)
+
+
+(defwidget metricb [label value onchange]
+  (eventbox :onhover "${EWW_CMD} update bri=true"		
+	    :onhoverlost "${EWW_CMD} update bri=false"
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (revealer :transition "slideleft" 
+	      :reveal bri 
+	      :duration "550ms"
+    (scale 
+           :min 0
+           :max 119
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))))
+(defvar bri false)
+
+(defwidget myw [icon text]
+   (box :orientation "h"
+   	:class "myw"
+	:space-evenly false
+	(label :text icon)
+	(label :text text)
+	))
+
+(defwidget pray [icon text]
+  (box :class "Pray"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+       (label :text icon )
+       (label :text text )
+    ))
+;;;;variables ####################################################
+
+
+(defpoll time :interval "1s"
+  "date '+%H:%M'")
+
+(defpoll batterypercent :interval "5s"
+  "scripts/getbat percent")
+(defpoll battclass :interval "1s"
+  "scripts/getbat class")
+(defpoll batteryicon :interval "1s"
+  "scripts/getbat icon")
+
+(defpoll wifiicon :interval "2s"
+  "scripts/wifirssi" )
+(defpoll wifiname :interval "2s"
+  "scripts/wifiname" )
+
+
+(deflisten brightness :initial 0
+  "tail -F tmp/bright_percent")
+
+(deflisten wrk  "tail -F /home/r3y0/.config/river/tmp/tag")
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll praytime :interval "1s"
+  "scripts/salatv1 nextSalat 36,6373 4,2041")
+
+(defpoll date :interval "60s"
+    "date '+%A %d - %m - %Y'")
