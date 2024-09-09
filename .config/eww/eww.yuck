@@ -1,0 +1,91 @@
+(defwidget bar []
+  (centerbox :orientation "v"
+    (top)
+    (center)
+    (sidestuff)))
+
+
+(defwidget top []
+    (box :class "top"
+         :space-evenly false
+         :orientation "v"
+         :valign "start"
+      (button :oncklick "fuzzel &"
+              :class "linux" "" )
+       (workspaces)
+     )
+)
+
+
+
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "v"
+    (button :onclick "~/.config/river/scripts/tag 1" 1)
+    (button :onclick "~/.config/river/scripts/tag 2" 2)
+    (button :onclick "~/.config/river/scripts/tag 3" 3)
+    (button :onclick "~/.config/river/scripts/tag 4" 4)
+    (button :onclick "~/.config/river/scripts/tag 4" 5)))
+
+
+
+(defwidget center []
+  (box :class "salat"
+       :orientation "v"
+       :space-evenly false
+       :valign "center"
+    "c"))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "v" :space-evenly false :valign "end"
+     
+    (time :class "time")
+    (button :onclick "poweroff"
+            :class "power" "⏻")))
+
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+
+;; Clock Widgets ;;
+(defwidget time []
+   (box :orientation "v" 
+        :class "time" 
+        :valign "end"
+   (button :class "time-hour" hour)
+   (button :class "time-min"  min)))
+
+
+(defpoll hour :interval "1s"
+  "date '+%H'")
+(defpoll min :interval "1s" 
+  "date '+%M'")
+
+
+
+
+(defwindow bar
+           :class "container"
+           :monitor 0
+           :geometry (geometry :x "0"
+                               :y "0"
+                               :width "35px"
+                               :height "99%"
+                               :anchor "center left")
+           :exclusive true 
+           :reserve (struts :distance "50px" :side "left")
+           :wm-ignore false
+ (bar)
+)
+

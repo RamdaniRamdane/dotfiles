@@ -3,6 +3,6 @@ tags=$((1 << ($1 - 1)))
 
 echo "$1" > ~/.config/river/tmp/tag &
 riverctl set-focused-tags $tags &
-wait
+
 
 

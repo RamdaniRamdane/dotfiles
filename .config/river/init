@@ -190,4 +190,4 @@ riverctl focus-follows-cursor normal
 # Set the default layout generator to be rivertile and start it.
 # River will send the proceriverctl map normal Super O spawn "~/.config/river/scripts/tag 2"ss group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-exec rivertile -view-padding  5 -outer-padding 10  &  
+exec rivertile -view-padding 5 -outer-padding 2  &  
