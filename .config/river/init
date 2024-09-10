@@ -16,8 +16,9 @@ riverctl map normal Super R spawn "~/.config/river/init"
 
 #autostart 
 riverctl spawn "eww open bar"
-#riverctl spawn "swaybg -i ~/wallpapers/akatsuki.jpg"
+riverctl spawn "swaybg -i ~/wallpapers/houses.png"
 riverctl spawn "~/.config/river/scripts/tag 1"
+riverctl spawn "echo 1 > ~/.config/river/tmp/tag"
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super Return spawn foot
 riverctl map normal Super+Shift F spawn "firefox"  
@@ -166,7 +167,7 @@ do
 done
 
 # Set background and border color
-riverctl background-color 0x00000080 
+#riverctl background-color 0x00000080 
 riverctl border-color-focused 0x565B66
 riverctl border-color-unfocused 0x11151C
 # Set keyboard repeat rate
@@ -190,4 +191,4 @@ riverctl focus-follows-cursor normal
 # Set the default layout generator to be rivertile and start it.
 # River will send the proceriverctl map normal Super O spawn "~/.config/river/scripts/tag 2"ss group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-exec rivertile -view-padding 5 -outer-padding 2  &  
+exec rivertile -view-padding 10 -outer-padding 20  &  

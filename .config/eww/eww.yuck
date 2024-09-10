@@ -1,5 +1,6 @@
 (defwidget bar []
   (centerbox :orientation "v"
+             :class "sideBar"
     (top)
     (center)
     (sidestuff)))
@@ -22,32 +23,40 @@
 (defwidget workspaces []
   (box :class "workspaces"
        :orientation "v"
-    (button :onclick "~/.config/river/scripts/tag 1" 1)
-    (button :onclick "~/.config/river/scripts/tag 2" 2)
-    (button :onclick "~/.config/river/scripts/tag 3" 3)
-    (button :onclick "~/.config/river/scripts/tag 4" 4)
-    (button :onclick "~/.config/river/scripts/tag 4" 5)))
+    (button :onclick "bash ~/.config/river/scripts/tag 1" {wrk == 1 ? "" : ""})
+    (button :onclick "bash ~/.config/river/scripts/tag 2" {wrk == 2 ? "" : ""})
+    (button :onclick "bash ~/.config/river/scripts/tag 3" {wrk == 3 ? "" : ""})
+    (button :onclick "bash ~/.config/river/scripts/tag 4" {wrk == 4 ? "" : ""})
+    (button :onclick "bash ~/.config/river/scripts/tag 5" {wrk == 5 ? "" : ""})))
 
-
+(deflisten wrk :initial 1 
+'tail -F ~/.config/river/tmp/tag')
 
 (defwidget center []
   (box :class "salat"
        :orientation "v"
        :space-evenly false
        :valign "center"
-    "c"))
+    wrk))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "v" :space-evenly false :valign "end"
-     
+    (circular-progress :class "membar"
+                       :value 50
+                       :start 0
+                       :thikness 10 "20")    
+    (box  :orientation "v"
+          :class "bat" {EWW_BATTERY.BAT0.capacity}"󰁾")
     (time :class "time")
     (button :onclick "poweroff"
-            :class "power" "⏻")))
+            :class "power" "⏻")
+
+            ))
 
 
 
 (defwidget metric [label value onchange]
-  (box :orientation "h"
+  (box :orientation "v0"
        :class "metric"
        :space-evenly false
     (box :class "label" label)
@@ -81,7 +90,7 @@
            :geometry (geometry :x "0"
                                :y "0"
                                :width "35px"
-                               :height "99%"
+                               :height "92%"
                                :anchor "center left")
            :exclusive true 
            :reserve (struts :distance "50px" :side "left")
