@@ -27,10 +27,24 @@
 
 
 //bottom  
+.bat{
+  padding: 5px 4px 5px 0 ;
+  color: #ffb454; 
+}
 
+.green{
+  padding: 5px 4px 5px 0 ;
+  color: #8BD49C;
+}
+
+.red{
+  padding: 5px 4px 5px 0 ;
+  color: #d95757 ;
+}
 .time{
   background-color: #1f2430;
   margin: 10px 3px;
+  padding: 5px;
   border-radius: 3px;
 }
 
@@ -38,9 +52,3 @@
   color:#d95757
 }
 
-.membar {
-  color: #e0b089;
-    background-color: #38384d;
-  border-radius: 10px;
-  background: red;
-}

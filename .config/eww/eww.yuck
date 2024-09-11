@@ -37,16 +37,12 @@
        :orientation "v"
        :space-evenly false
        :valign "center"
-    wrk))
+    ""))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "v" :space-evenly false :valign "end"
-    (circular-progress :class "membar"
-                       :value 50
-                       :start 0
-                       :thikness 10 "20")    
-    (box  :orientation "v"
-          :class "bat" {EWW_BATTERY.BAT0.capacity}"󰁾")
+    (label :class {EWW_BATTERY.BAT0.status == "Charging" ? "green" : EWW_BATTERY.BAT0.capacity < 20 ? "red" : "bat"}    
+           :text {EWW_BATTERY.BAT0.capacity > 90 ? "" : EWW_BATTERY.BAT0.capacity > 70 ? "" : EWW_BATTERY.BAT0.capacity > 50 ? "" : EWW_BATTERY.BAT0.capacity > 25 ? "" :""})
     (time :class "time")
     (button :onclick "poweroff"
             :class "power" "⏻")
