@@ -3,9 +3,10 @@
              :class "sideBar"
     (top)
     (center)
-    (sidestuff)))
+    (bottomstuff)))
 
 
+;; Top ;; 
 (defwidget top []
     (box :class "top"
          :space-evenly false
@@ -20,6 +21,7 @@
 
 
 
+;; Wrokspaces ;;
 (defwidget workspaces []
   (box :class "workspaces"
        :orientation "v"
@@ -32,35 +34,36 @@
 (deflisten wrk :initial 1 
 'tail -F ~/.config/river/tmp/tag')
 
+
+;; Center ;;
 (defwidget center []
-  (box :class "salat"
+  (box :class "center"
        :orientation "v"
        :space-evenly false
        :valign "center"
     ""))
 
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "v" :space-evenly false :valign "end"
+
+
+;; Bottom ;;
+(defwidget bottomstuff []
+  (box :class "bottomstuff" :orientation "v" :space-evenly false :valign "end"
+    (label :class "bat"
+           :text {wifiRSSI > -50 ? "󰤨" : wifiRSSI > -60 ? "󰤥" : wifiRSSI > -70 ? "󰤢" : wifiRSSI > -100 ? "󰤟" : "󰤭"}
+           :tooltip "Wifi : ${wifiName}")
     (label :class {EWW_BATTERY.BAT0.status == "Charging" ? "green" : EWW_BATTERY.BAT0.capacity < 20 ? "red" : "bat"}    
-           :text {EWW_BATTERY.BAT0.capacity > 90 ? "" : EWW_BATTERY.BAT0.capacity > 70 ? "" : EWW_BATTERY.BAT0.capacity > 50 ? "" : EWW_BATTERY.BAT0.capacity > 25 ? "" :""})
+           :text {EWW_BATTERY.BAT0.capacity > 90 ? "" : EWW_BATTERY.BAT0.capacity > 70 ? "" : EWW_BATTERY.BAT0.capacity > 50 ? "" : EWW_BATTERY.BAT0.capacity > 25 ? "" :""}
+           :tooltip "Battery : ${EWW_BATTERY.BAT0.capacity}%")
     (time :class "time")
     (button :onclick "poweroff"
             :class "power" "⏻")
 
             ))
 
-
-
-(defwidget metric [label value onchange]
-  (box :orientation "v0"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
+(defpoll wifiName :interval "1s"
+  "./scripts/wifi name")
+(defpoll wifiRSSI :interval "1s"
+  "./scripts/wifi rssi")
 
 
 ;; Clock Widgets ;;

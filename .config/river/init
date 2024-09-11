@@ -15,7 +15,7 @@ riverctl map normal Super R spawn "~/.config/river/init"
 
 
 #autostart 
-riverctl spawn "eww open bar"
+riverctl spawn "killall eww ; eww open bar"
 riverctl spawn "swaybg -i ~/wallpapers/houses.png"
 riverctl spawn "~/.config/river/scripts/tag 1"
 riverctl spawn "echo 1 > ~/.config/river/tmp/tag"
@@ -162,8 +162,8 @@ do
     riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
 
     # Control screen backlight brightness with light (https://github.com/haikarainen/light)
-    riverctl map $mode None XF86MonBrightnessUp   spawn '~/.config/eww/scripts/brightness  +5'
-    riverctl map $mode None XF86MonBrightnessDown spawn '~/.config/eww/scripts/brightness  -5'
+    riverctl map $mode None XF86MonBrightnessUp   spawn '~/.config/river/scripts/brightness +10'
+    riverctl map $mode None XF86MonBrightnessDown spawn '~/.config/river/scripts/brightness -10'
 done
 
 # Set background and border color

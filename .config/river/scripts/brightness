@@ -1,0 +1,5 @@
+#!/bin/bash
+backlight=$(cat /sys/class/backlight/intel_backlight/brightness)
+
+
+echo $(( backlight + $1 )) > /sys/class/backlight/intel_backlight/brightness 

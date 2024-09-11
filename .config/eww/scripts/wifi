@@ -1,0 +1,10 @@
+#!/bin/bash
+
+wifiName=$(iwctl station wlan0 show | grep "Connected net" | awk '{ print $3 }')
+wifiRssi=$(iwctl station wlan0 show | grep RSSI | awk '{print $2}' | head -n 1)
+
+if [ $1 == "name" ]; then 
+    echo $wifiName
+elif [ $1 == "rssi" ]; then
+    echo $wifiRssi
+fi

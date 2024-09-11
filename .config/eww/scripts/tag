@@ -1,0 +1,7 @@
+#!/bin/sh 
+tags=$((1 << ($1 - 1)))
+
+
+
+riverctl set-focused-tags $tags 
+

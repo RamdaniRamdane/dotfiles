@@ -1,5 +1,6 @@
 *{
   all: unset;
+  font-family: JetBrainsMono Nerd Font;
 }
 
 .sideBar{
@@ -52,3 +53,7 @@
   color:#d95757
 }
 
+tooltip{
+  background: black;
+  font-size: 10px;
+}
