@@ -16,7 +16,7 @@ riverctl map normal Super R spawn "~/.config/river/init"
 
 #autostart 
 riverctl spawn "killall eww ; eww open bar"
-riverctl spawn "swaybg -i ~/wallpapers/houses.png"
+riverctl spawn "swaybg -i ~/wallpapers/sun.jpg"
 riverctl spawn "~/.config/river/scripts/tag 1"
 riverctl spawn "echo 1 > ~/.config/river/tmp/tag"
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)

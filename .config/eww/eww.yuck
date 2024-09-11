@@ -49,7 +49,7 @@
 (defwidget bottomstuff []
   (box :class "bottomstuff" :orientation "v" :space-evenly false :valign "end"
     (label :class "bat"
-           :text {wifiRSSI > -50 ? "󰤨" : wifiRSSI > -60 ? "󰤥" : wifiRSSI > -70 ? "󰤢" : wifiRSSI > -100 ? "󰤟" : "󰤭"}
+           :text {wifiRSSI > -50 ? "󰤨" : wifiRSSI > -60 ? "󰤥" : wifiRSSI > -70 ? "󰤢" : wifiRSSI > -100 ? "󰤟" : "󰤭" }
            :tooltip "Wifi : ${wifiName}")
     (label :class {EWW_BATTERY.BAT0.status == "Charging" ? "green" : EWW_BATTERY.BAT0.capacity < 20 ? "red" : "bat"}    
            :text {EWW_BATTERY.BAT0.capacity > 90 ? "" : EWW_BATTERY.BAT0.capacity > 70 ? "" : EWW_BATTERY.BAT0.capacity > 50 ? "" : EWW_BATTERY.BAT0.capacity > 25 ? "" :""}
