@@ -107,14 +107,18 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
+current_tag=$(cat ~/.config/river/tmp/tag)
 
 # Changing tags wig th o and i
 #curr="$(cat /home/r3y0/.config/river/tmp/tag)"
-riverctl map normal Super P spawn "~/.config/river/scripts/tag 3"
+riverctl map normal Super P spawn " ~/.config/river/scripts/tag 4 "
 
-riverctl map normal Super O spawn "~/.config/river/scripts/tag 2"
+riverctl map normal Super O spawn " ~/.config/river/scripts/tag 3 "
 
-riverctl map normal Super I spawn "~/.config/river/scripts/tag 1"
+riverctl map normal Super I spawn " ~/.config/river/scripts/tag 2 "
+
+riverctl map normal Super U spawn "~/.config/river/scripts/tag 1 "
+
 
 # Super+Space to toggle float
 riverctl map normal Super+Shift Space toggle-float
