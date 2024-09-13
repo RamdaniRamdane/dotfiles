@@ -41,7 +41,10 @@
        :orientation "v"
        :space-evenly false
        :valign "center"
-    ""))
+    (label :text ""
+           :tooltip date)))
+(defpoll date :interval "1s"
+  "date '+%d-%m-%Y'")
 
 
 
